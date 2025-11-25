@@ -53,6 +53,18 @@
             <version>4.4.0</version>
         </dependency>
 
+<!--    database-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.8</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
+            <version>3.5.14</version>
+        </dependency>
+
     </dependencies>
 
     <build>
