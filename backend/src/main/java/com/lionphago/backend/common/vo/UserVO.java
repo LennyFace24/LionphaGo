@@ -3,6 +3,15 @@ package com.lionphago.backend.common.vo;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * 用户VO
+ * <li>{@code userId} 学号</li>
+ * <li>{@code username} 用户名</li>
+ * <li>{@code grade} 年级</li>
+ * <li>{@code _class} 班级</li>
+ * <li>{@code major} 专业</li>
+ * <li>{@code school} 学院</li>
+ */
 @Data
 @Builder
 public class UserVO {

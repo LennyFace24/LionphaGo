@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0d48a519-d6af-4052-95a0-7918bcea0d09" name="更改" comment="" />
+    <list default="true" id="f49829f4-c4d8-4da2-a8be-203fa7764bb2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/lionphago/backend/common/dto/GameDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/lionphago/backend/common/dto/RecordDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/lionphago/backend/common/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/lionphago/backend/common/dto/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/lionphago/backend/common/vo/UserVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/lionphago/backend/common/vo/UserVO.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,7 +20,6 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -33,105 +39,42 @@
     "accountId": "fe50ad07-8f56-4c9b-bf4f-d632020b9427"
   }
 }]]></component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 5
-}</component>
-  <component name="ProjectId" id="35xj8rVN1Wf1zgzchEspeNAzb48" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="35zq57TWm6GMyAJE9ydHM3LzNQN" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Maven.lionphago [clean].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.BackendApplication.executor": "Run",
-    "Spring Boot.LionphagoApplication.executor": "Run",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/zoombie/Download/LionphaGo",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\lennyface\Desktop\LionphaGoprj\LionphaGo\lionphago\src\main\java\com\lionphago\lionphago" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="lionphago" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="lionphago" />
-      <option name="filePath" />
-      <method v="2" />
-    </configuration>
-    <configuration name="BackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="backend" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.lionphago.backend.BackendApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LionphagoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <module name="lionphago" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="com.lionphago.lionphago.LionphagoApplication" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
-        <option value="bundled-js-predefined-d6986cc7102b-3aa1da707db6-JavaScript-IU-252.26830.84" />
-      </set>
-    </attachedChunks>
-  </component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="默认任务">
-      <changelist id="0d48a519-d6af-4052-95a0-7918bcea0d09" name="更改" comment="" />
-      <created>1764058461013</created>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f49829f4-c4d8-4da2-a8be-203fa7764bb2" name="Changes" comment="" />
+      <created>1764123062933</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1764058461013</updated>
-      <workItem from="1764058462413" duration="3774000" />
-      <workItem from="1764062270012" duration="177000" />
-      <workItem from="1764062469470" duration="311000" />
-      <workItem from="1764062795798" duration="293000" />
-      <workItem from="1764063111922" duration="383000" />
-      <workItem from="1764063511944" duration="88000" />
-      <workItem from="1764063611726" duration="25000" />
-      <workItem from="1764063649046" duration="102000" />
-      <workItem from="1764063800317" duration="337000" />
-      <workItem from="1764065237189" duration="1747000" />
+      <updated>1764123062933</updated>
     </task>
     <servers />
   </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
