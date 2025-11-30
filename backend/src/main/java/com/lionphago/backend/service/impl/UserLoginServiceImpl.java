@@ -5,6 +5,7 @@ import com.lionphago.backend.common.dto.UserDTO;
 import com.lionphago.backend.common.vo.UserVO;
 import com.lionphago.backend.mapper.UserMapper;
 import com.lionphago.backend.service.UserLoginService;
+import com.lionphago.backend.utils.ShiroMD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,22 +20,27 @@ public class UserLoginServiceImpl implements UserLoginService {
      * @return {@code UserVO}
      */
     public UserVO login(UserDTO user) {
-        UserDTO userFromDatabase = UserDTO.builder().build();
+        UserDTO userFromDatabase = null;
 
         if(user.getUserId() != null) {
             userFromDatabase = userMapper.selectById(user.getUserId());
-        } else if (user.getUsername() != null) {
+        } else if (!user.getUsername().isEmpty()) {
             QueryWrapper<UserDTO> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("username", user.getUsername());
             userFromDatabase  = userMapper.selectOne(queryWrapper);
         }
-
-        if (userFromDatabase.getPassword().equals(user.getPassword())) {
+        // 数据库中不存在
+        if(userFromDatabase == null){
+            return UserVO.builder().build();
+        }
+        // 加密
+        String encryptedPassword = ShiroMD5Util.encrypt(user.getPassword());
+        if (userFromDatabase.getPassword().equals(encryptedPassword) ){
             return UserVO.builder()
                     .id(userFromDatabase.getUserId())
                     .username(userFromDatabase.getUsername())
                     .grade(userFromDatabase.getGrade())
-                    ._class(userFromDatabase.get_class())
+                    .classNumber(userFromDatabase.getClassNumber())
                     .major(userFromDatabase.getMajor())
                     .school(userFromDatabase.getSchool())
                     .build();

@@ -1,9 +1,15 @@
 package com.lionphago.backend.common.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.lionphago.backend.handler.StringListTypeHandler;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,16 +25,27 @@ import java.util.Set;
  */
 @Data
 @Builder
-@TableName("`user`")
+@NoArgsConstructor
+@AllArgsConstructor
+@TableName("user_info")
 public class UserDTO {
 
-    @TableId(value = "userId")
+    @TableId(value = "user_id")
     private Long userId;  // 学号
+
     private String username; // 用户名
+
     private String password; // 口令
+
     private Integer grade; // 年级
-    private Integer _class; // 班级
+
+    @TableField(value = "class_number")
+    private Integer classNumber; // 班级
+
     private String major; // 专业
+
     private String school; // 学院
-    private Set<String> roleName; // 角色
+
+    @TableField(value = "rolename",typeHandler = StringListTypeHandler.class)
+    private List<String> roleName; // 角色
 }

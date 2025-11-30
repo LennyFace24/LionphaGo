@@ -35,8 +35,8 @@ public class UserController {
     @PostMapping("/login")
     public Result userLogin(@RequestParam(value = "id", required = false) Long id, @RequestParam(value = "username", required = false) String username, @RequestParam("password") String password) {
         // 判空
-        if (username == null && id == null) {
-            return Result.error("用户名或学号为空");
+        if (username.isEmpty() && id == null) {
+            return Result.error("用户名和学号为空");
         }
         if (password == null) {
             return Result.error("口令为空");
@@ -56,6 +56,11 @@ public class UserController {
         return Result.success(userVO);
     }
 
+    /**
+     * 用户注册接口
+     * @param userDTO
+     * @return
+     */
     @Operation(summary = "用户注册")
     @PostMapping("/register")
     public Result userRegister(@RequestBody UserDTO userDTO) {
@@ -66,7 +71,7 @@ public class UserController {
                 && StringUtils.hasText(userDTO.getPassword())
                 && StringUtils.hasText(userDTO.getMajor())
                 && StringUtils.hasText(userDTO.getSchool())
-                && userDTO.get_class() != null
+                && userDTO.getClassNumber() != null
                 && userDTO.getGrade() != null){
             // 注册
             UserVO userVO = userRegisterService.Register(userDTO);

@@ -3,19 +3,34 @@ package com.lionphago.backend.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lionphago.backend.common.dto.UserDTO;
 import com.lionphago.backend.common.vo.UserVO;
+import com.lionphago.backend.constant.RolenameConstant;
 import com.lionphago.backend.exception.UserAlreadyExsistException;
+import com.lionphago.backend.exception.UserInfoInvalidException;
 import com.lionphago.backend.mapper.UserMapper;
 import com.lionphago.backend.service.UserRegisterService;
+import com.lionphago.backend.utils.ShiroMD5Util;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 public class UserRegisterServiceImpl implements UserRegisterService {
+
+
     @Autowired
     private UserMapper userMapper;
+
+
+    // 学号正则规则
+    private static final Pattern USER_ID_PATTERN =
+            Pattern.compile("^20\\d{2}[0-9]{2}[0-9]{2}\\d{2}$");
 
     /**
      * 用户注册
@@ -23,6 +38,12 @@ public class UserRegisterServiceImpl implements UserRegisterService {
      * @return {@code UserVO}
      */
     public UserVO Register(UserDTO userDTO) {
+
+        // 正则检验学号格式
+        String userIdStr = String.valueOf(userDTO.getUserId());
+        if (!USER_ID_PATTERN.matcher(userIdStr).matches()) {
+            throw new UserInfoInvalidException("学号格式不正确，应满足：年份20xx + 学院号01 + 班级号01 + 未知01");
+        }
 
         // 设置身份
         // userDTO.setRoleName();
@@ -34,11 +55,15 @@ public class UserRegisterServiceImpl implements UserRegisterService {
         if(userMapper.selectOne(queryWrapper) != null){
             throw new UserAlreadyExsistException("已经存在对应的用户");
         }
+        // 密码md5加密
+        userDTO.setPassword(ShiroMD5Util.encrypt(userDTO.getPassword()));
+        userDTO.setRoleName(List.of(RolenameConstant.STUDENT));
+
         userMapper.insert(userDTO);
         return UserVO.builder().id(userDTO.getUserId())
                 .grade(userDTO.getGrade())
                 .major(userDTO.getMajor())
-                ._class(userDTO.get_class())
+                .classNumber(userDTO.getClassNumber())
                 .school(userDTO.getSchool())
                 .username(userDTO.getUsername())
                 .build();
