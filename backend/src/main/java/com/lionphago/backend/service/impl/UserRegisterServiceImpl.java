@@ -8,15 +8,9 @@ import com.lionphago.backend.exception.UserAlreadyExsistException;
 import com.lionphago.backend.exception.UserInfoInvalidException;
 import com.lionphago.backend.mapper.UserMapper;
 import com.lionphago.backend.service.UserRegisterService;
-import com.lionphago.backend.utils.ShiroMD5Util;
-import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.crypto.hash.SimpleHash;
-import org.springframework.beans.BeanUtils;
+import com.lionphago.backend.utils.ShiroSHAUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -55,8 +49,8 @@ public class UserRegisterServiceImpl implements UserRegisterService {
         if(userMapper.selectOne(queryWrapper) != null){
             throw new UserAlreadyExsistException("已经存在对应的用户");
         }
-        // 密码md5加密
-        userDTO.setPassword(ShiroMD5Util.encrypt(userDTO.getPassword()));
+        // SHA512 HASH
+        userDTO.setPassword(ShiroSHAUtil.encrypt(userDTO.getPassword()));
         userDTO.setRoleName(List.of(RolenameConstant.STUDENT));
 
         userMapper.insert(userDTO);

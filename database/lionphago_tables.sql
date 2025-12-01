@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS public.user_info
     class_number integer,
     major character varying(100) COLLATE pg_catalog."default",
     school character varying(100) COLLATE pg_catalog."default",
-    rolename text[] COLLATE pg_catalog."default",
+    role_name text[] COLLATE pg_catalog."default",
     CONSTRAINT "user_id 学号" PRIMARY KEY (user_id)
     )
 

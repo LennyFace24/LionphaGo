@@ -18,7 +18,7 @@ import java.util.Set;
  * <li>{@code username} 用户名</li>
  * <li>{@code password} 口令</li>
  * <li>{@code grade} 年级</li>
- * <li>{@code _class} 班级</li>
+ * <li>{@code classNumber} 班级</li>
  * <li>{@code major} 专业</li>
  * <li>{@code school} 学院</li>
  * <li>{@code roleName} 角色</li>
@@ -46,6 +46,6 @@ public class UserDTO {
 
     private String school; // 学院
 
-    @TableField(value = "rolename",typeHandler = StringListTypeHandler.class)
+    @TableField(value = "role_name",typeHandler = StringListTypeHandler.class)
     private List<String> roleName; // 角色
 }

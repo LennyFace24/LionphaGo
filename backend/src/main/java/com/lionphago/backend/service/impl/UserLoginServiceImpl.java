@@ -5,7 +5,7 @@ import com.lionphago.backend.common.dto.UserDTO;
 import com.lionphago.backend.common.vo.UserVO;
 import com.lionphago.backend.mapper.UserMapper;
 import com.lionphago.backend.service.UserLoginService;
-import com.lionphago.backend.utils.ShiroMD5Util;
+import com.lionphago.backend.utils.ShiroSHAUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +34,7 @@ public class UserLoginServiceImpl implements UserLoginService {
             return UserVO.builder().build();
         }
         // 加密
-        String encryptedPassword = ShiroMD5Util.encrypt(user.getPassword());
+        String encryptedPassword = ShiroSHAUtil.encrypt(user.getPassword());
         if (userFromDatabase.getPassword().equals(encryptedPassword) ){
             return UserVO.builder()
                     .id(userFromDatabase.getUserId())

@@ -8,7 +8,7 @@ import lombok.Data;
  * <li>{@code userId} 学号</li>
  * <li>{@code username} 用户名</li>
  * <li>{@code grade} 年级</li>
- * <li>{@code _class} 班级</li>
+ * <li>{@code classNumber} 班级</li>
  * <li>{@code major} 专业</li>
  * <li>{@code school} 学院</li>
  */
