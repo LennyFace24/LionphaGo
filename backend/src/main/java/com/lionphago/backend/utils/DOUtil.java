@@ -12,6 +12,7 @@ public class DOUtil {
                 .classNumber(dto.getClassNumber())
                 .major(dto.getMajor())
                 .school(dto.getSchool())
+                .roleName(dto.getRoleName())
                 .build();
     }
 }

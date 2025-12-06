@@ -3,6 +3,9 @@ package com.lionphago.backend.common.vo;
 import lombok.Builder;
 import lombok.Data;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * 用户VO
  * <li>{@code userId} 学号</li>
@@ -14,11 +17,12 @@ import lombok.Data;
  */
 @Data
 @Builder
-public class UserVO {
+public class UserVO implements Serializable {
     private Long userId;  // 学号
     private String username; // 用户名
     private Integer grade; // 年级
     private Integer classNumber; // 班级
     private String major; // 专业
     private String school; // 学院
+    private List<String> roleName;// 角色
 }

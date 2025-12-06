@@ -41,7 +41,6 @@ public class UserRegisterServiceImpl implements UserRegisterService {
         }
 
         // 设置身份
-        // userDTO.setRoleName();
         QueryWrapper<UserDTO> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id",userDTO.getUserId())
                 .or()
