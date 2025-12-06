@@ -7,9 +7,11 @@ import com.lionphago.backend.mapper.UserMapper;
 import com.lionphago.backend.service.UserLoginService;
 import com.lionphago.backend.utils.DOUtil;
 import com.lionphago.backend.utils.ShiroSHAUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserLoginServiceImpl implements UserLoginService {
 
@@ -25,6 +27,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 
         if(user.getUserId() != null) {
             userFromDatabase = userMapper.selectById(user.getUserId());
+            log.info(userFromDatabase.toString());
         } else if (!user.getUsername().isEmpty()) {
             QueryWrapper<UserDTO> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("username", user.getUsername());

@@ -3,7 +3,7 @@ package com.lionphago.backend.common.dto;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.lionphago.backend.handler.StringListTypeHandler;
+import com.lionphago.backend.handler.ListJsonTypeHandler;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +27,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@TableName("user_info")
+@TableName(value = "user_info",autoResultMap = true)
 public class UserDTO {
 
     @TableId(value = "user_id")
@@ -46,6 +46,6 @@ public class UserDTO {
 
     private String school; // 学院
 
-    @TableField(value = "role_name",typeHandler = StringListTypeHandler.class)
+    @TableField(value = "role_name",typeHandler = ListJsonTypeHandler.class)
     private List<String> roleName; // 角色
 }
