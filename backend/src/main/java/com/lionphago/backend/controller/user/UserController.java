@@ -6,17 +6,12 @@ import com.lionphago.backend.result.Result;
 import com.lionphago.backend.service.UserLoginService;
 import com.lionphago.backend.service.UserRegisterService;
 import com.lionphago.backend.service.UserEditService;
-import com.lionphago.backend.utils.RoleAuthorityConverter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @RequestMapping("/user")
-@Tag(name = "用户相关接口")
+@Tag(name = "用户接口")
 public class UserController {
 
     @Autowired
@@ -36,54 +31,32 @@ public class UserController {
 
     /**
      * 用户登录接口
-     * @params {@code id}, {@code username}, {@code password}
+     * @param {@code userDTO}
      * @return {@code Result}
      */
     @Operation(summary = "用户登录")
     @PostMapping("/login")
-    public Result userLogin(@RequestParam(value = "id", required = false) Long id
-            , @RequestParam(value = "username", required = false) String username
-            , @RequestParam("password") String password
-            , HttpServletRequest request) {
-        // 判空
-        if (username.isEmpty() && id == null) {
-            return Result.error("用户名和学号为空");
+    public Result<UserVO> userLogin(@RequestBody UserDTO userDTO, HttpServletRequest request) {
+        // 参数校验
+        if (!StringUtils.hasText(userDTO.getUsername()) && userDTO.getUserId() == null) {
+            return Result.error("用户名和学号不能同时为空");
         }
-        if (password == null) {
+        if (!StringUtils.hasText(userDTO.getPassword())) {
             return Result.error("口令为空");
         }
 
-        UserDTO userDTO = UserDTO.builder()
-                .userId(id)
-                .username(username)
-                .password(password)
-                .build();
-        // 验证
-        UserVO userVO = userLoginService.login(userDTO);
-        if (userVO.getUserId() == null) {
+        // 登录
+        try {
+            UserVO userVO = userLoginService.login(userDTO);
+
+            // 登录成功，强制创建 Session
+            request.getSession(true);
+
+            return Result.success(userVO);
+        } catch (AuthenticationException e) {
+            // 捕获认证异常
             return Result.error("账户或密码错误");
         }
-
-        // 构造 Authentication 对象
-        Authentication authentication = new UsernamePasswordAuthenticationToken(
-                userVO.getUserId(),
-                null,
-                RoleAuthorityConverter.converter(userVO.getRoleName())
-        );
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        // 把用户信息放入session
-        HttpSession httpSession = request.getSession(true);
-
-        // 把securityContext存到session中 确保spring security识别用户状态
-        httpSession.setAttribute(
-                HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
-                SecurityContextHolder.getContext()
-        );
-        httpSession.setAttribute("user",userVO);
-
-
-
-        return Result.success(userVO);
     }
 
     /**

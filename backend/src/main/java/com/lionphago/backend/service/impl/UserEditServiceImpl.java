@@ -5,9 +5,12 @@ import com.lionphago.backend.common.vo.UserVO;
 import com.lionphago.backend.mapper.UserMapper;
 import com.lionphago.backend.service.UserEditService;
 import com.lionphago.backend.utils.DOUtil;
-import com.lionphago.backend.utils.ShiroSHAUtil;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Log4j2
@@ -15,6 +18,8 @@ import org.springframework.stereotype.Service;
 public class UserEditServiceImpl implements UserEditService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /**
      * 用户修改
@@ -22,6 +27,16 @@ public class UserEditServiceImpl implements UserEditService {
      * @return @{code UserVO}
      */
     public UserVO Edit(UserDTO user) {
+        // 从SecurityContext获取当前登录的用户信息
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Long currentUserId = Long.parseLong(authentication.getName());
+
+        // 检查当前登录用户ID和请求修改的用户ID是否一致
+        if (!currentUserId.equals(user.getUserId())) {
+            log.error("权限校验失败：用户 {} 尝试修改用户 {} 的信息。", currentUserId, user.getUserId());
+            throw new AccessDeniedException("没有权限修改其他用户的信息。");
+        }
+
         // 偷懒，用修改部分替换已有的部分，然后使用整个对象update
         UserDTO userFromDatabase = userMapper.selectById(user.getUserId());
 
@@ -30,13 +45,13 @@ public class UserEditServiceImpl implements UserEditService {
             userFromDatabase.setUsername(user.getUsername());
         }
         if(!user.getPassword().isEmpty()) {
-            String encryptedPassword = ShiroSHAUtil.encrypt(user.getPassword());
+            String encryptedPassword = passwordEncoder.encode(user.getPassword());
             userFromDatabase.setPassword(encryptedPassword);
         }
-        if(!user.getGrade().describeConstable().isEmpty()) {
+        if(user.getGrade().describeConstable().isPresent()) {
             userFromDatabase.setGrade(user.getGrade());
         }
-        if(!user.getClassNumber().describeConstable().isEmpty()) {
+        if(user.getClassNumber().describeConstable().isPresent()) {
             userFromDatabase.setClassNumber(user.getClassNumber());
         }
         if(!user.getMajor().isBlank()) {
