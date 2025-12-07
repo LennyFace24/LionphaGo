@@ -9,8 +9,8 @@ import com.lionphago.backend.exception.UserInfoInvalidException;
 import com.lionphago.backend.mapper.UserMapper;
 import com.lionphago.backend.service.UserRegisterService;
 import com.lionphago.backend.utils.DOUtil;
-import com.lionphago.backend.utils.ShiroSHAUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -21,6 +21,9 @@ public class UserRegisterServiceImpl implements UserRegisterService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     // 学号正则规则
@@ -49,8 +52,8 @@ public class UserRegisterServiceImpl implements UserRegisterService {
         if(userMapper.selectOne(queryWrapper) != null){
             throw new UserAlreadyExsistException("已经存在对应的用户");
         }
-        // SHA512 HASH
-        userDTO.setPassword(ShiroSHAUtil.encrypt(userDTO.getPassword()));
+        // 使用 Argon2 加密密码
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userDTO.setRoleName(List.of(RolenameConstant.STUDENT));
 
         userMapper.insert(userDTO);

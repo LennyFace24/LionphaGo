@@ -1,14 +1,16 @@
 package com.lionphago.backend.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.lionphago.backend.common.dto.UserDTO;
 import com.lionphago.backend.common.vo.UserVO;
 import com.lionphago.backend.mapper.UserMapper;
 import com.lionphago.backend.service.UserLoginService;
 import com.lionphago.backend.utils.DOUtil;
-import com.lionphago.backend.utils.ShiroSHAUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -17,31 +19,36 @@ public class UserLoginServiceImpl implements UserLoginService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private AuthenticationManager authenticationManager; // 注入 AuthenticationManager
+
+    @Override
     /**
      * 用户登录
      * @param {@code UserDTO}
      * @return {@code UserVO}
      */
-    public UserVO login(UserDTO user) {
-        UserDTO userFromDatabase = null;
+    public UserVO login(UserDTO userLoginRequest) {
+        // 使用 AuthenticationManager 进行认证
+        // principal 可以是用户名或学号
+        String principal = userLoginRequest.getUserId() != null ? userLoginRequest.getUserId().toString() : userLoginRequest.getUsername();
+        
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                principal,
+                userLoginRequest.getPassword()
+        );
+        
+        // authenticationManager 认证，配置于 SecurityConfig
+        Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
-        if(user.getUserId() != null) {
-            userFromDatabase = userMapper.selectById(user.getUserId());
-            log.info(userFromDatabase.toString());
-        } else if (!user.getUsername().isEmpty()) {
-            QueryWrapper<UserDTO> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("username", user.getUsername());
-            userFromDatabase  = userMapper.selectOne(queryWrapper);
-        }
-        // 数据库中不存在
-        if(userFromDatabase == null){
-            return UserVO.builder().build();
-        }
-        // 加密
-        String encryptedPassword = ShiroSHAUtil.encrypt(user.getPassword());
-        if (userFromDatabase.getPassword().equals(encryptedPassword) ){
-            return DOUtil.dtoToVo(userFromDatabase);
-        }
-        return UserVO.builder().build();
+        // 认证成功后，将认证信息存入 SecurityContext
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        // 从数据库获取完整的用户信息，返回给前端
+        Long userId = Long.parseLong(authentication.getName());
+        UserDTO userFromDatabase = userMapper.selectById(userId);
+        
+        return DOUtil.dtoToVo(userFromDatabase);
     }
 }

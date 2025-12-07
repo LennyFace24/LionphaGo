@@ -10,7 +10,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * 用户
@@ -46,6 +45,6 @@ public class UserDTO {
 
     private String school; // 学院
 
-    @TableField(value = "role_name",typeHandler = ListJsonTypeHandler.class)
+    @TableField(value = "rolename",typeHandler = ListJsonTypeHandler.class)
     private List<String> roleName; // 角色
 }
