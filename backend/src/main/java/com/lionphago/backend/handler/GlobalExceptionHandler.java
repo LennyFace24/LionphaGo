@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
     /**
      * 捕获业务异常
-     * @param { @code ex }
-     * @return { @code Result }
+     * @param {@code BaseException ex}
+     * @return {@code Result}
      */
     @ExceptionHandler
     public Result exceptionHandler(BaseException ex){
@@ -24,8 +24,8 @@ public class GlobalExceptionHandler {
 
     /**
      * 捕获权限校验异常
-     * @param { @code ex }
-     * @return { @code Result }
+     * @param {@code AccessDeniedException ex}
+     * @return {@code Result}
      */
     @ExceptionHandler
     public Result exceptionHandler(AccessDeniedException ex){

@@ -70,13 +70,6 @@
             <version>3.5.15</version>
         </dependency>
 
-<!--        shiro-->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>1.6.0</version>
-        </dependency>
-
 <!--        spring security-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

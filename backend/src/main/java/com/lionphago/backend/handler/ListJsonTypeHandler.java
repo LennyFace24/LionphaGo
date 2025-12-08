@@ -14,6 +14,9 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * JAVA List 与 SQL JSON 转换
+ */
 public class ListJsonTypeHandler extends BaseTypeHandler<List<String>> {
 
     private static final ObjectMapper mapper = new ObjectMapper();

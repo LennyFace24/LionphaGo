@@ -2,6 +2,9 @@ package com.lionphago.backend.constant;
 
 /**
  * 角色常量
+ * <ul>ADMIN</ul>
+ * <ul>STUDENT</ul>
+ * <ul>TEACHER</ul>
  */
 public class RolenameConstant {
 

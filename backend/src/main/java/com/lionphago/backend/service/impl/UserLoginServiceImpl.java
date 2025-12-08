@@ -26,7 +26,7 @@ public class UserLoginServiceImpl implements UserLoginService {
     @Override
     /**
      * 用户登录
-     * @param {@code UserDTO}
+     * @param {@code UserDTO userLoginRequest}
      * @return {@code UserVO}
      */
     public UserVO login(UserDTO userLoginRequest) {

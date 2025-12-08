@@ -32,7 +32,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
 
     /**
      * 用户注册
-     * @param {@code UserDTO}
+     * @param {@code UserDTO userDTO}
      * @return {@code UserVO}
      */
     public UserVO Register(UserDTO userDTO) {

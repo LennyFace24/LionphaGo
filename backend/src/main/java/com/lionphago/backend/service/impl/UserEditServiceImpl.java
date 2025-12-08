@@ -23,17 +23,14 @@ public class UserEditServiceImpl implements UserEditService {
 
     /**
      * 用户修改
-     * @param {@code user}
+     * @param {@code UserDTO user}
      * @return @{code UserVO}
      */
     public UserVO Edit(UserDTO user) {
         // 从SecurityContext获取当前登录的用户信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Long currentUserId = Long.parseLong(authentication.getName());
-
-        // 检查当前登录用户ID和请求修改的用户ID是否一致
-        if (!currentUserId.equals(user.getUserId())) {
-            log.error("权限校验失败：用户 {} 尝试修改用户 {} 的信息。", currentUserId, user.getUserId());
+        if(!DOUtil.verifyIdentity(user.getUserId(), authentication)) {
+            log.error("权限校验失败：用户 {} 尝试修改用户 {} 的信息。", authentication.getName(), user.getUserId());
             throw new AccessDeniedException("没有权限修改其他用户的信息。");
         }
 

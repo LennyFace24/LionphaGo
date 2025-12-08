@@ -31,8 +31,10 @@ public class UserController {
 
     /**
      * 用户登录接口
-     * @param {@code userDTO}
+     * @param {@code userDTO userDTO} {@code HttpServletRequest request}
      * @return {@code Result}
+     * </br>
+     * request 为自动注入
      */
     @Operation(summary = "用户登录")
     @PostMapping("/login")
@@ -61,7 +63,7 @@ public class UserController {
 
     /**
      * 用户注册接口
-     * @param {@code userDTO}
+     * @param {@code UserDTO userDTO}
      * @return {@code Result}
      */
     @Operation(summary = "用户注册")
@@ -86,7 +88,7 @@ public class UserController {
 
     /**
      * 用户编辑接口
-     * @param {@code userDTO}
+     * @param {@code UserDTO userDTO}
      * @return {@code Result}
      */
     @Operation(summary = "用户编辑")
