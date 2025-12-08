@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     /**
      * 重写 Spring Security 读入用户信息逻辑
-     * @param {@code username}
+     * @param {@code String username}
      * @param {@code UserDetails}
      */
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

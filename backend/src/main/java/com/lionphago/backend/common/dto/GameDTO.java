@@ -1,5 +1,7 @@
 package com.lionphago.backend.common.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Builder;
 import lombok.Data;
@@ -14,9 +16,14 @@ import java.util.Set;
  */
 @Data
 @Builder
-@TableName("`game`")
+@TableName(value = "`game`",autoResultMap = true)
 public class GameDTO {
+    @TableId(value = "game_id")
     private Long gameId; // 赛事id
+
+    @TableField(value = "game_title")
     private String gameTitle; // 赛事名称
+
+    @TableField(value = "gamers")
     private Set<Long> gamers;  // 参赛(学号)名单
 }
